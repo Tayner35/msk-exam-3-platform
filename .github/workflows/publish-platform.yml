@@ -18,7 +18,7 @@ jobs:
 
       - name: Download platform HTML
         env:
-          SOURCE_URL: "https://sdmntprwestus3.oaiusercontent.com/files/00000000-49f4-71fd-9710-84da1c0c90b4/raw?se=2026-05-23T17:19:54Z&sp=r&sv=2026-02-06&sr=b&scid=3200f936-cd42-430c-9b43-56ed0b90821f&skoid=c69179d1-5b5d-430f-afa3-b9bdcf9d6497&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-05-23T06:36:00Z&ske=2026-05-25T06:36:00Z&sks=b&skv=2026-02-06&sig=p6hS2t0GBgMJF4OxIQGPgQoZwfZR7vycpCfvYlu4G5s%3D"
+          SOURCE_URL: "https://sdmntprwestus3.oaiusercontent.com/files/00000000-c360-71fd-bc59-c6192d7a1c49/raw?se=2026-05-23T17:38:12Z&sp=r&sv=2026-02-06&sr=b&scid=1791830b-86ea-4eae-b015-5ca3a70f91b5&skoid=c69179d1-5b5d-430f-afa3-b9bdcf9d6497&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-05-23T17:21:29Z&ske=2026-05-25T17:21:29Z&sks=b&skv=2026-02-06&sig=I2hOPBWtQnpkVjrrA718BknhxrRXG47ZBMg6ansCApw%3D"
         run: |
           curl -L --fail --retry 3 --retry-delay 2 "$SOURCE_URL" -o index.html
           test -s index.html
