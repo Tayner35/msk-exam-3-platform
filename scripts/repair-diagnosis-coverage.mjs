@@ -155,7 +155,15 @@ const diseaseRepairs = [
     treatment: "Treat septic arthritis as an emergency while diagnostic workup proceeds."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.02", name: "Scoliosis",
+    module: "regional", group: "Back Pain", lo: "13.02", name: "Axial spondyloarthritis",
+    also: "AxSpA; ankylosing spondylitis spectrum",
+    description: "Inflammatory back pain syndrome on the axial spondyloarthritis spectrum; ankylosing spondylitis is the radiographic/classic form emphasized by the LO.",
+    clinical: "Back pain starting at younger age, morning stiffness, improvement with exercise rather than rest, alternating buttock pain, and possible extra-articular features.",
+    testing: "Look for sacroiliitis pattern and inflammatory features; radiographs or MRI are used depending on duration and suspicion.",
+    treatment: "Exercise/physical therapy and anti-inflammatory therapy are core; persistent inflammatory disease needs rheumatology-directed management."
+  },
+  {
+    module: "regional", group: "Back Pain", lo: "13.03", name: "Scoliosis",
     also: "Spinal curvature",
     description: "Lateral spinal curvature with rotation; in this platform it is a back pain differential and exam/radiograph recognition item.",
     clinical: "Asymmetric shoulder or rib prominence, abnormal Adams forward bend test, or chronic mechanical symptoms.",
@@ -163,7 +171,15 @@ const diseaseRepairs = [
     treatment: "Observation, bracing, or referral depends on age, curve magnitude, progression, and symptoms."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.03", name: "Spondylolysis",
+    module: "regional", group: "Back Pain", lo: "13.01", name: "Kyphosis",
+    also: "Excess sagittal thoracic curvature",
+    description: "Exaggerated posterior spinal curvature that belongs in the posture/spinal-deformity differential for back pain.",
+    clinical: "Rounded thoracic posture, pain with prolonged posture or extension demands, and concern for structural deformity when rigid or progressive.",
+    testing: "Standing spine radiographs quantify curvature when deformity is clinically meaningful or progressive.",
+    treatment: "Postural/extension strengthening and observation for flexible mild cases; bracing or referral is considered for progressive structural kyphosis."
+  },
+  {
+    module: "regional", group: "Back Pain", lo: "13.04", name: "Spondylolysis",
     also: "Pars interarticularis stress injury",
     description: "Stress injury or defect of the pars interarticularis, classically producing extension-related low back pain in adolescents or athletes.",
     clinical: "Back pain worsened by extension, sports with repetitive hyperextension, hamstring tightness, and focal lumbar discomfort.",
@@ -171,7 +187,7 @@ const diseaseRepairs = [
     treatment: "Activity modification, core/hip rehabilitation, and gradual return to sport; refer for neurologic symptoms or refractory pain."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.04", name: "Degenerative disk disease",
+    module: "regional", group: "Back Pain", lo: "13.05", name: "Degenerative disk disease",
     also: "Degenerative disc disease",
     description: "Age- and load-related disc degeneration that can contribute to chronic axial mechanical low back pain.",
     clinical: "Activity-related axial pain, stiffness, and recurrent mechanical flares without infection, cancer, fracture, or cauda equina signs.",
@@ -179,7 +195,15 @@ const diseaseRepairs = [
     treatment: "Exercise-based care, activity maintenance, analgesics when appropriate, and escalation only for persistent disabling or neurologic features."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.04", name: "Intervertebral disc herniation",
+    module: "regional", group: "Back Pain", lo: "13.06, 13.12", name: "Cauda equina syndrome/cord compression",
+    also: "Cauda equina/cord compression; spinal cord compression",
+    description: "Neurologic emergency from compression of cauda equina nerve roots or spinal cord structures.",
+    clinical: "Saddle anesthesia, urinary retention or incontinence, bowel dysfunction, progressive bilateral neurologic deficits, or myelopathic signs.",
+    testing: "Urgent MRI is the key test when suspected; do not delay for routine outpatient workup.",
+    treatment: "Emergency spine/neurosurgical consultation and decompression-directed management when confirmed or strongly suspected."
+  },
+  {
+    module: "regional", group: "Back Pain", lo: "13.07, 13.14", name: "Intervertebral disc herniation",
     also: "Herniated disc; lumbar radiculopathy source",
     description: "Disc material protrudes and can compress or irritate a nerve root.",
     clinical: "Radiating leg pain, dermatomal sensory symptoms, reflex change, or pain worsened by maneuvers that increase nerve tension.",
@@ -187,7 +211,7 @@ const diseaseRepairs = [
     treatment: "Initial conservative management unless red flags or progressive neurologic compromise are present."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.07", name: "Discitis",
+    module: "regional", group: "Back Pain", lo: "13.09", name: "Discitis",
     also: "Vertebral osteomyelitis/disc space infection",
     description: "Infection involving the intervertebral disc space and adjacent vertebral endplates.",
     clinical: "Persistent back pain with fever, bacteremia risk, immunosuppression, or elevated inflammatory markers.",
@@ -195,7 +219,7 @@ const diseaseRepairs = [
     treatment: "Urgent evaluation, targeted antimicrobials, and specialist involvement when neurologic compromise or abscess is possible."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.06", name: "Spinal stenosis",
+    module: "regional", group: "Back Pain", lo: "13.08", name: "Spinal stenosis",
     also: "Lumbar spinal stenosis; neurogenic claudication",
     description: "Narrowing of the spinal canal or foramina producing exertional leg symptoms from neural compression.",
     clinical: "Leg pain, numbness, or weakness with walking or standing that improves with sitting or lumbar flexion.",
@@ -203,12 +227,52 @@ const diseaseRepairs = [
     treatment: "Flexion-biased exercise, activity modification, analgesics when appropriate, injections or surgery for selected persistent neurologic limitation."
   },
   {
-    module: "regional", group: "Back Pain", lo: "13.08", name: "Musculoskeletal low back pain",
+    module: "regional", group: "Back Pain", lo: "13.10, 13.13", name: "Musculoskeletal low back pain",
     also: "Mechanical low back pain; nonspecific low back pain",
     description: "Back pain without objective red-flag, radicular, infectious, inflammatory, fracture, or cord/cauda equina features.",
     clinical: "Pain related to activity, posture, or strain with preserved neurologic function and no systemic warning signs.",
     testing: "Avoid routine imaging early when no red flags are present.",
     treatment: "Reassurance, activity as tolerated, NSAIDs/acetaminophen when appropriate, and exercise-based recovery."
+  },
+  {
+    module: "regional", group: "Foot and Ankle", lo: "03.01, 03.05, 14.03, 14.06", name: "Ankle sprain",
+    also: "Lateral ankle ligament sprain; inversion ankle sprain",
+    description: "Stretch or tear of the ankle ligament complex, most often the lateral ligaments after inversion injury.",
+    clinical: "Lateral ankle pain, swelling, ecchymosis, tenderness over ATFL/CFL region, and difficulty bearing weight depending on grade.",
+    testing: "Use Ottawa-style bony tenderness/weight-bearing logic to decide on radiographs; grade instability and compare neurovascular status.",
+    treatment: "Functional support, protected weight-bearing, early range of motion, progressive strengthening/proprioception, and referral for fracture or high-grade instability."
+  },
+  {
+    module: "regional", group: "Foot and Ankle", lo: "14.02, 14.07", name: "Plantar fasciitis",
+    also: "Plantar fascitis spelling variant; plantar heel pain",
+    description: "Overload/degeneration of the plantar fascia causing inferior heel pain.",
+    clinical: "Sharp plantar medial heel pain that is worst with first steps after rest and improves after warming up.",
+    testing: "Clinical diagnosis; focal plantar fascia origin tenderness is more important than routine imaging.",
+    treatment: "Stretching of plantar fascia/calf, footwear or orthotic support, activity modification, and gradual load management."
+  },
+  {
+    module: "regional", group: "Foot and Ankle", lo: "14.04", name: "Tarsal tunnel syndrome",
+    also: "Posterior tibial nerve entrapment",
+    description: "Compression neuropathy of the posterior tibial nerve or branches as they pass through the tarsal tunnel.",
+    clinical: "Burning, tingling, or numbness in the plantar foot, often worsened by standing or activity, sometimes with Tinel sign posterior to medial malleolus.",
+    testing: "Clinical localization first; electrodiagnostics or imaging are used for uncertain, persistent, or mass-related cases.",
+    treatment: "Reduce compression, footwear/orthotic changes, anti-inflammatory measures when appropriate, and referral for refractory or structural compression."
+  },
+  {
+    module: "regional", group: "Foot and Ankle", lo: "14.05", name: "Achilles tendonitis",
+    also: "Achilles tendinopathy; Achilles tendinitis",
+    description: "Painful overuse tendinopathy of the Achilles tendon, usually midportion or insertional.",
+    clinical: "Posterior heel or calf-tendon pain with activity, tendon thickening/tenderness, and pain with resisted plantarflexion or loading.",
+    testing: "Clinical diagnosis; ultrasound or MRI is reserved for uncertain diagnosis, severe symptoms, or rupture concern.",
+    treatment: "Activity/load modification, heel lift when helpful, progressive calf strengthening/eccentric loading, and rupture precautions."
+  },
+  {
+    module: "regional", group: "Foot and Ankle", lo: "14.01 source-level foot differential", name: "Hallux deformity",
+    also: "Hallux valgus; bunion; hallux rigidus comparator",
+    description: "Forefoot deformity category involving abnormal great-toe alignment or motion, commonly hallux valgus or hallux rigidus.",
+    clinical: "Medial first MTP prominence, great-toe deviation, shoe-wear pain, reduced first-MTP motion, or pain with push-off.",
+    testing: "Weight-bearing foot radiographs are used when severity, arthritis, or operative planning matters.",
+    treatment: "Wide toe-box footwear, padding/orthotics, activity modification, and referral for progressive deformity, arthritis, or refractory pain."
   },
   {
     module: "regional", group: "Hip Pain", lo: "15.04", name: "Developmental dysplasia of the hip",
@@ -565,19 +629,24 @@ const coverageRows = [
   ["regional", "Anterior/posterior cruciate ligament tear", "Explicit LO 12.06 diagnostic target", "Diagnose ACL/PCL tear.", "Glossary alias, regional practice, LO drill, and coverage row.", "ACL pivot/pop/effusion versus PCL dashboard/posterior tibial force logic."],
   ["regional", "Prepatellar bursitis", "Explicit LO 12.07 diagnostic/management target", "Diagnose and treat prepatellar bursitis.", "Regional practice, glossary/flashcard linkage, LO drill, and coverage row.", "Anterior kneecap swelling from kneeling/trauma; evaluate infection when red/hot/systemic."],
   ["regional", "Osteoarthritis", "Explicit LO 12.02 and regional degenerative target", "Recognize osteoarthritis across regional pain modules.", "Glossary/disease linkage, knee module, LO drills, and coverage row.", "Mechanical degenerative joint pain, stiffness, crepitus, and function-focused management."],
-  ["regional", "Ankylosing spondylitis", "Explicit LO 13.01 diagnostic target", "Diagnose ankylosing spondylitis.", "Existing regional back practice, glossary linkage, and coverage row.", "Inflammatory back pain, morning stiffness, improvement with exercise, sacroiliitis pattern."],
-  ["regional", "Scoliosis", "Explicit LO 13.02 diagnostic target", "Diagnose scoliosis.", "Added disease card, glossary, rapid recall, and coverage row.", "Spinal curvature/rotation, Adams test, standing radiographs/Cobb angle when indicated."],
-  ["regional", "Spondylolysis", "Explicit LO 13.03 diagnostic target", "Diagnose spondylolysis.", "Regional back practice, glossary linkage, and coverage row.", "Pars stress injury, extension-related low back pain in athletes."],
-  ["regional", "Degenerative disk disease", "Explicit LO 13.04 diagnostic target", "Diagnose degenerative disc disease.", "Regional back practice, glossary linkage, and coverage row.", "Chronic mechanical axial back pain and age-related disc degeneration."],
-  ["regional", "Cauda equina/cord compression", "Explicit LO 13.05 red-flag target", "Identify cauda equina or cord compression.", "Glossary alias, regional red-flag practice, and coverage row.", "Saddle anesthesia, bowel/bladder dysfunction, progressive neurologic deficit, myelopathy signs."],
-  ["regional", "Intervertebral disc herniation", "Explicit LO 13.04/13.06 diagnostic target", "Diagnose disc herniation/radiculopathy.", "Added disease card, glossary, rapid recall, back-pain vignette, and coverage row.", "Radicular pain, dermatomal symptoms, nerve tension signs, MRI only when indicated."],
-  ["regional", "Spinal stenosis", "Explicit LO 13.06 diagnostic target", "Diagnose spinal stenosis.", "Regional back practice, glossary linkage, and coverage row.", "Neurogenic claudication, relief with flexion/sitting, walking limitation."],
-  ["regional", "Discitis", "Explicit LO 13.07 diagnostic target", "Diagnose discitis.", "Added disease card, glossary, rapid recall, and coverage row.", "Back pain with infection risk, fever/ESR-CRP, MRI and culture-directed therapy."],
-  ["regional", "Musculoskeletal low back pain", "Explicit LO 13.08 management target", "Treat musculoskeletal low back pain.", "Added disease card, glossary, rapid recall, and coverage row.", "No red flags, activity as tolerated, avoid routine early imaging, conservative recovery plan."],
-  ["regional", "Musculoskeletal back pain", "Explicit LO 13.08 management target", "Synonym/alias for mechanical low back pain.", "Glossary alias and coverage row tied to musculoskeletal low back pain card.", "Same mechanical back pain logic; separate from radicular, inflammatory, infectious, and emergency patterns."],
-  ["regional", "Plantar fasciitis", "Explicit LO 14.01 diagnostic/management target", "Diagnose and treat plantar fasciitis.", "Glossary alias, regional foot practice, LO drill, and coverage row.", "Inferior heel pain worst with first steps; stretching/load modification."],
-  ["regional", "Tarsal tunnel syndrome", "Explicit LO 14.02 diagnostic/management target", "Diagnose and treat tarsal tunnel syndrome.", "Glossary alias, regional foot practice, LO drill, and coverage row.", "Posterior tibial nerve compression with plantar paresthesias."],
-  ["regional", "Achilles tendonitis", "Explicit LO 14.03 diagnostic/management target", "Diagnose and treat Achilles tendinopathy.", "Glossary alias, regional foot practice, LO drill, and coverage row.", "Posterior heel tendon pain, loading program, rupture red flags."],
+  ["regional", "Axial spondyloarthritis", "Explicit LO 13.02 ankylosing spondylitis spectrum target", "Represent the broader axial spondyloarthritis spectrum while preserving the ankylosing spondylitis LO anchor.", "Added disease card, glossary, rapid recall, and coverage row.", "Inflammatory back pain, morning stiffness, improvement with exercise, sacroiliitis, and extra-articular clues."],
+  ["regional", "Ankylosing spondylitis", "Explicit LO 13.02 diagnostic target", "Diagnose ankylosing spondylitis.", "Existing regional back practice, glossary linkage, and coverage row.", "Inflammatory back pain, morning stiffness, improvement with exercise, sacroiliitis pattern."],
+  ["regional", "Scoliosis", "Explicit LO 13.03 diagnostic target", "Diagnose scoliosis.", "Added disease card, glossary, rapid recall, and coverage row.", "Spinal curvature/rotation, Adams test, standing radiographs/Cobb angle when indicated."],
+  ["regional", "Kyphosis", "Source-level LO 13.01 back pain differential", "Recognize kyphosis as a spinal alignment/deformity contributor in the low back pain differential.", "Added disease card, glossary, rapid recall, and coverage row.", "Excess sagittal curvature, flexible versus structural posture, and radiographic measurement when progressive."],
+  ["regional", "Spondylolysis", "Explicit LO 13.04 diagnostic target", "Diagnose spondylolysis.", "Regional back practice, glossary linkage, and coverage row.", "Pars stress injury, extension-related low back pain in athletes."],
+  ["regional", "Degenerative disk disease", "Explicit LO 13.05 diagnostic target", "Diagnose degenerative disc disease.", "Regional back practice, glossary linkage, and coverage row.", "Chronic mechanical axial back pain and age-related disc degeneration."],
+  ["regional", "Cauda equina/cord compression", "Explicit LO 13.06 and 13.12 diagnostic/management target", "Identify and treat cauda equina or cord compression.", "Glossary alias, regional red-flag practice, rapid recall, and coverage row.", "Saddle anesthesia, bowel/bladder dysfunction, progressive neurologic deficit, myelopathy signs, urgent MRI and decompression pathway."],
+  ["regional", "Cauda equina syndrome/cord compression", "Explicit LO 13.06 and 13.12 diagnostic/management target", "Identify and treat cauda equina syndrome or cord compression.", "Added disease card, glossary, rapid recall, and coverage row under the requested name.", "Neurologic emergency: saddle anesthesia, bladder/bowel dysfunction, progressive deficits, urgent MRI, and spine/neurosurgical escalation."],
+  ["regional", "Intervertebral disc herniation", "Explicit LO 13.07 and 13.14 diagnostic/management target", "Diagnose and treat disc herniation/radiculopathy.", "Added disease card, glossary, rapid recall, back-pain vignette, and coverage row.", "Radicular pain, dermatomal symptoms, nerve tension signs, conservative care unless red flags or progressive deficit."],
+  ["regional", "Spinal stenosis", "Explicit LO 13.08 diagnostic target", "Diagnose spinal stenosis.", "Regional back practice, glossary linkage, and coverage row.", "Neurogenic claudication, relief with flexion/sitting, walking limitation."],
+  ["regional", "Discitis", "Explicit LO 13.09 diagnostic target", "Diagnose discitis.", "Added disease card, glossary, rapid recall, and coverage row.", "Back pain with infection risk, fever/ESR-CRP, MRI and culture-directed therapy."],
+  ["regional", "Musculoskeletal low back pain", "Explicit LO 13.10 and 13.13 diagnostic/management target", "Diagnose and treat musculoskeletal low back pain.", "Added disease card, glossary, rapid recall, and coverage row.", "No red flags, activity as tolerated, avoid routine early imaging, conservative recovery plan."],
+  ["regional", "Musculoskeletal back pain", "Explicit LO 13.10 and 13.13 diagnostic/management target", "Synonym/alias for mechanical low back pain.", "Glossary alias and coverage row tied to musculoskeletal low back pain card.", "Same mechanical back pain logic; separate from radicular, inflammatory, infectious, and emergency patterns."],
+  ["regional", "Ankle sprain", "Explicit LO 03.01, 03.05, 14.03, and 14.06 diagnostic/management target", "Diagnose and manage ankle sprain in injury and foot/ankle modules.", "Disease card, glossary, rapid recall, injury module, regional foot/ankle practice, LO drill, and coverage row.", "Inversion mechanism, lateral ligament tenderness, Ottawa-style imaging logic, support, protected weight-bearing, and proprioceptive rehab."],
+  ["regional", "Plantar fasciitis", "Explicit LO 14.02 and 14.07 diagnostic/management target", "Diagnose and treat plantar fasciitis.", "Promoted to disease card with glossary, rapid recall, regional foot practice, LO drill, and coverage row.", "Inferior heel pain worst with first steps; stretching/load modification and footwear support."],
+  ["regional", "Tarsal tunnel syndrome", "Explicit LO 14.04 diagnostic target", "Diagnose tarsal tunnel syndrome.", "Promoted to disease card with glossary, rapid recall, regional foot practice, LO drill, and coverage row.", "Posterior tibial nerve compression with plantar paresthesias and medial ankle Tinel localization."],
+  ["regional", "Achilles tendonitis", "Explicit LO 14.05 diagnostic target", "Diagnose Achilles tendinopathy/tendonitis.", "Promoted to disease card with glossary, rapid recall, regional foot practice, LO drill, and coverage row.", "Posterior heel tendon pain, load sensitivity, progressive calf strengthening, and rupture precautions."],
+  ["regional", "Hallux deformity", "Source-level LO 14.01 foot/ankle pain differential", "Recognize hallux deformity as a foot pain differential even though it is not a separate spreadsheet LO.", "Added disease card, glossary, rapid recall, and coverage row.", "Great-toe alignment or motion problem: hallux valgus/bunion or hallux rigidus, shoe-wear pain, push-off pain, and weight-bearing radiographs when needed."],
   ["regional", "Developmental dysplasia of the hip", "Explicit LO 15.04 diagnostic target", "Diagnose DDH.", "Added disease card, glossary, rapid recall, and coverage row.", "Infant hip instability, limited abduction, ultrasound/radiograph age logic."],
   ["regional", "Legg-Calve-Perthes disease", "Explicit LO 15.05 diagnostic target", "Diagnose Perthes disease.", "Added disease card, glossary, rapid recall, pediatric hip vignette contrast, and coverage row.", "Child limp with femoral head osteonecrosis and limited hip motion."],
   ["regional", "Slipped capital femoral epiphysis", "Explicit LO 15.06 diagnostic target", "Diagnose SCFE.", "Added disease card, glossary, rapid recall, pediatric hip vignette, and coverage row.", "Adolescent limp/hip-knee pain, limited internal rotation, non-weight-bearing and urgent ortho."],
