@@ -221,6 +221,8 @@ function globalSearch(query){
   DATA.management.forEach(item=>addSearchResult(results,q,'Management',item.title,`${item.stem} ${item.question} ${item.why} ${item.answer}`,'management',4));
   DATA.images.forEach(img=>addSearchResult(results,q,'Image',img.title,`${img.key} ${img.prompt||''} ${img.answer||''} ${img.source||''}`,'visuals',4));
   ANATOMY_TERMS.forEach(term=>addSearchResult(results,q,'Anatomy landmark',term.label,term.summary,'anatomy',5));
+  (DATA.antibiotic_command?.cases||[]).forEach(item=>addSearchResult(results,q,'Antibiotic Command',item.title,`${item.diagnosis} ${item.classification} ${item.presentation.age} ${item.presentation.chief} ${item.presentation.exam} ${item.memoryHook}`,'antibiotic',6));
+  (DATA.antibiotic_command?.antibiotics||[]).forEach(item=>addSearchResult(results,q,'Antibiotic card',item.name,`${item.route} ${(item.coverage||[]).join(' ')} ${item.use} ${item.stop}`,'antibiotic',6));
   return results.sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title)).slice(0,SEARCH_LIMIT);
 }
 
@@ -275,6 +277,7 @@ function ensureSectionRendered(id){
   else if(id==='anatomy')renderAnatomy();
   else if(id==='discriminators')renderDiscriminators();
   else if(id==='management')renderManagement();
+  else if(id==='antibiotic')renderAntibioticCommand();
   else if(['infection','injury','genetics','tumors','muscle','ultrasound','regional'].includes(id))renderTopic(id);
   else if(['clinical','mixed'].includes(id))drawQuestionDeck(id,0);
 }
