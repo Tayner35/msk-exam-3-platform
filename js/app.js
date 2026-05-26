@@ -2,11 +2,33 @@ const DATA = window.MSK_DATA;
 const SOURCE_LOOKUP = new Map((DATA.source_manifest || []).map((source) => [source.path, source]));
 const SEARCH_LIMIT = 36;
 
+const ANATOMY_TERMS = [
+  {id:'medial-condyle', label:'Medial Condyle', summary:'Proximal medial articular expansion of the tibia. It carries load from the femur and forms the medial tibiofemoral compartment.'},
+  {id:'lateral-condyle', label:'Lateral Condyle', summary:'Proximal lateral articular expansion. It is wider front-to-back and helps form the lateral tibiofemoral compartment.'},
+  {id:'tibial-spines', label:'Tibial Spines', summary:'Intercondylar eminence between the plateaus. The cruciate ligaments attach around this central ridge.'},
+  {id:'tibial-tuberosity', label:'Tibial Tuberosity', summary:'Prominent anterior roughened area where the patellar ligament inserts.'},
+  {id:'anterolateral-tubercle', label:'Anterolateral Tibial Tubercle', summary:'Gerdy tubercle region on the anterolateral proximal tibia, serving as an iliotibial band insertion landmark.'},
+  {id:'shaft', label:'Shaft of Tibia', summary:'Long diaphysis of the tibia with a palpable anterior border and broad medial surface.'},
+  {id:'medial-malleolus', label:'Medial Malleolus', summary:'Distal medial projection of the tibia that forms the medial ankle mortise landmark.'}
+];
+
+const ANATOMY_SOURCE = 'Original SVG reconstruction for this platform; https://medapp.mc.uky.edu/anatomyinteractives/ViewModule?assetid=1046';
+
+if(!DATA.modules.some(m=>m.id==='anatomy')){
+  DATA.modules.push({
+    id:'anatomy',
+    title:'Tibia Anatomy Interactive',
+    desc:'Original anterior tibia landmark drill with term-triggered highlights and a magnified detail view.',
+    sources:[ANATOMY_SOURCE],
+    lo_prefixes:['14','15','16']
+  });
+}
+
 const STORE='md818_e3_platform_state_v1';
 function readState(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){try{localStorage.removeItem(STORE);}catch(_){}return {};}}
 let storageAvailable=true;
 let state=readState();
-state.completed=state.completed||{};state.correct=state.correct||0;state.attempts=state.attempts||0;state.missed=state.missed||[];state.streak=state.streak||0;state.flagged=state.flagged||{};state.positions=state.positions||{};state.moduleIndex=state.moduleIndex||{};state.imageIndex=state.imageIndex||0;state.hotspotIndex=state.hotspotIndex||0;state.caseIndex=state.caseIndex||0;state.discriminatorIndex=state.discriminatorIndex||0;state.managementIndex=state.managementIndex||0;state.repairIndex=state.repairIndex||0;state.confidence=state.confidence||{};state.examMode=state.examMode||false;
+state.completed=state.completed||{};state.correct=state.correct||0;state.attempts=state.attempts||0;state.missed=state.missed||[];state.streak=state.streak||0;state.flagged=state.flagged||{};state.positions=state.positions||{};state.moduleIndex=state.moduleIndex||{};state.imageIndex=state.imageIndex||0;state.hotspotIndex=state.hotspotIndex||0;state.caseIndex=state.caseIndex||0;state.discriminatorIndex=state.discriminatorIndex||0;state.managementIndex=state.managementIndex||0;state.repairIndex=state.repairIndex||0;state.confidence=state.confidence||{};state.anatomyFeature=state.anatomyFeature||ANATOMY_TERMS[0].id;state.examMode=state.examMode||false;
 let dashboardScroll=0;
 function save(){try{localStorage.setItem(STORE,JSON.stringify(state));storageAvailable=true;}catch(e){storageAvailable=false;}renderStats();}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
@@ -153,7 +175,7 @@ function moduleControls(id){
 
 function moduleRail(id){
   if(id==='dashboard')return'';
-  const items=[['Top','scrollTo(0,0)'],['Home',`showSection('dashboard')`],['Images',`showSection('visuals')`],['Compare',`showSection('discriminators')`],['Repair',`showSection('repair')`],['LO map',`showSection('objectives')`]];
+  const items=[['Top','scrollTo(0,0)'],['Home',`showSection('dashboard')`],['Images',`showSection('visuals')`],['Anatomy',`showSection('anatomy')`],['Compare',`showSection('discriminators')`],['Repair',`showSection('repair')`],['LO map',`showSection('objectives')`]];
   return `<aside class="module-rail">${items.map(([label,action])=>`<button class="${label==='Top'?'primary':''}" onclick="${action}">${esc(label)}</button>`).join('')}</aside>`;
 }
 
@@ -189,6 +211,7 @@ function globalSearch(query){
   DATA.discriminators.forEach(item=>addSearchResult(results,q,'Discriminator',item.pair,`${item.stem} ${item.question} ${item.why}`,'discriminators',4));
   DATA.management.forEach(item=>addSearchResult(results,q,'Management',item.title,`${item.stem} ${item.question} ${item.why} ${item.answer}`,'management',4));
   DATA.images.forEach(img=>addSearchResult(results,q,'Image',img.title,`${img.key} ${img.prompt||''} ${img.answer||''} ${img.source||''}`,'visuals',4));
+  ANATOMY_TERMS.forEach(term=>addSearchResult(results,q,'Anatomy landmark',term.label,term.summary,'anatomy',5));
   return results.sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title)).slice(0,SEARCH_LIMIT);
 }
 
@@ -240,6 +263,7 @@ function ensureSectionRendered(id){
   else if(id==='drugs')renderDrugs();
   else if(id==='visuals')renderVisuals();
   else if(id==='hotspots')renderHotspots();
+  else if(id==='anatomy')renderAnatomy();
   else if(id==='discriminators')renderDiscriminators();
   else if(id==='management')renderManagement();
   else if(['infection','injury','genetics','tumors','muscle','ultrasound','regional'].includes(id))renderTopic(id);
@@ -282,6 +306,111 @@ function imageAtlas(keys){
 function loadVisualAtlas(){
   const mount=document.getElementById('visualAtlasMount');
   if(mount)mount.innerHTML=imageAtlas();
+}
+
+function anatomyTermById(id){
+  return ANATOMY_TERMS.find(term=>term.id===id) || ANATOMY_TERMS[0];
+}
+
+function anatomyClass(id, activeId){
+  return id===activeId?'active':'';
+}
+
+function anatomyButton(term, activeId){
+  const selected=term.id===activeId;
+  return `<button class="anatomy-term ${selected?'active':''}" aria-pressed="${selected}" onmouseenter="setAnatomyFeature('${term.id}',false)" onfocus="setAnatomyFeature('${term.id}',true)" onclick="setAnatomyFeature('${term.id}',true)"><span>${esc(term.label)}</span></button>`;
+}
+
+function renderAnatomyTibiaSvg(activeId){
+  const bind=(id)=>`data-feature="${id}" onclick="setAnatomyFeature('${id}',true)" onmouseenter="setAnatomyFeature('${id}',false)"`;
+  return `<svg class="tibia-svg" viewBox="0 0 900 560" role="img" aria-labelledby="tibiaSvgTitle tibiaSvgDesc">
+    <title id="tibiaSvgTitle">Original anterior tibia anatomy diagram</title>
+    <desc id="tibiaSvgDesc">Stylized tibia with selectable proximal, shaft, and distal landmarks.</desc>
+    <defs>
+      <linearGradient id="boneFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f8e7bd"/><stop offset=".45" stop-color="#d9b46d"/><stop offset="1" stop-color="#b88942"/></linearGradient>
+      <linearGradient id="boneShadow" x1="0" x2="1"><stop offset="0" stop-color="#fff5d8"/><stop offset=".55" stop-color="#d4a85c"/><stop offset="1" stop-color="#8e6730"/></linearGradient>
+      <filter id="softShadow"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity=".28"/></filter>
+    </defs>
+    <rect width="900" height="560" rx="18" fill="#050506"/>
+    <g class="full-tibia" filter="url(#softShadow)">
+      <path d="M412 42 C382 42 356 58 347 83 C338 107 346 130 361 147 C382 170 390 202 389 244 L385 440 C385 478 368 493 350 509 C375 520 413 516 441 508 C428 491 418 472 418 440 L412 244 C411 203 420 169 441 146 C458 128 463 101 453 78 C443 54 430 42 412 42Z" fill="url(#boneFill)" stroke="#efe1bd" stroke-width="2"/>
+      <path d="M404 88 C389 135 400 229 397 422" fill="none" stroke="#fff3cf" stroke-width="6" opacity=".5"/>
+      <path d="M422 83 C438 137 426 232 427 428" fill="none" stroke="#93662c" stroke-width="5" opacity=".28"/>
+      <path d="M354 508 C372 491 383 486 395 489 C408 493 423 491 439 507 C419 526 374 526 354 508Z" fill="url(#boneShadow)" stroke="#efe1bd" stroke-width="2"/>
+    </g>
+    <g class="feature-layer">
+      <path class="feature-highlight ${anatomyClass('medial-condyle',activeId)}" ${bind('medial-condyle')} d="M350 79 C358 52 384 42 411 43 C399 66 397 96 405 125 C384 125 365 116 354 101 C350 95 348 87 350 79Z"/>
+      <path class="feature-highlight ${anatomyClass('lateral-condyle',activeId)}" ${bind('lateral-condyle')} d="M414 43 C438 42 454 57 460 79 C467 105 454 125 425 130 C428 100 426 69 414 43Z"/>
+      <path class="feature-highlight ${anatomyClass('tibial-spines',activeId)}" ${bind('tibial-spines')} d="M397 73 L415 62 L430 76 L419 91 L404 91Z"/>
+      <ellipse class="feature-highlight ${anatomyClass('tibial-tuberosity',activeId)}" ${bind('tibial-tuberosity')} cx="409" cy="161" rx="22" ry="34"/>
+      <path class="feature-highlight ${anatomyClass('anterolateral-tubercle',activeId)}" ${bind('anterolateral-tubercle')} d="M441 126 C461 134 464 158 443 173 C432 165 429 143 441 126Z"/>
+      <path class="feature-highlight ${anatomyClass('shaft',activeId)}" ${bind('shaft')} d="M389 206 C399 219 421 220 431 206 L427 421 C419 432 397 432 386 421Z"/>
+      <path class="feature-highlight ${anatomyClass('medial-malleolus',activeId)}" ${bind('medial-malleolus')} d="M352 489 C366 488 382 496 394 511 C381 524 357 519 345 510Z"/>
+    </g>
+    <g class="anatomy-detail" transform="translate(542 68)">
+      <rect x="0" y="0" width="296" height="382" rx="18" fill="#111316" stroke="#344055"/>
+      <text x="22" y="40" fill="#dbeafe" font-size="18" font-weight="700">Magnified landmark</text>
+      <g transform="translate(42 72)" filter="url(#softShadow)">
+        <path d="M91 2 C48 5 20 31 17 70 C14 108 40 133 68 145 C88 154 93 181 94 221 L99 287 C110 302 145 302 158 287 L165 220 C168 181 173 154 195 143 C225 128 243 103 239 68 C234 28 209 5 171 2 C145 15 118 15 91 2Z" fill="url(#boneFill)" stroke="#f0dfb7" stroke-width="2"/>
+        <path class="feature-highlight ${anatomyClass('medial-condyle',activeId)}" d="M18 64 C25 26 55 4 94 4 C86 38 91 70 106 95 C69 101 35 91 18 64Z"/>
+        <path class="feature-highlight ${anatomyClass('lateral-condyle',activeId)}" d="M165 4 C207 5 234 29 240 66 C224 92 190 103 151 94 C163 68 170 37 165 4Z"/>
+        <path class="feature-highlight ${anatomyClass('tibial-spines',activeId)}" d="M103 41 L131 21 L158 43 L146 67 L115 67Z"/>
+        <ellipse class="feature-highlight ${anatomyClass('tibial-tuberosity',activeId)}" cx="126" cy="137" rx="33" ry="44"/>
+        <path class="feature-highlight ${anatomyClass('anterolateral-tubercle',activeId)}" d="M184 107 C218 118 221 151 189 170 C171 155 169 124 184 107Z"/>
+        <path class="feature-highlight ${anatomyClass('shaft',activeId)}" d="M95 199 C109 213 149 213 164 199 L156 287 C143 300 113 300 100 287Z"/>
+        <path class="feature-highlight ${anatomyClass('medial-malleolus',activeId)}" d="M74 276 C91 276 108 286 117 301 C100 318 74 312 62 298Z"/>
+      </g>
+    </g>
+    <text x="34" y="526" fill="#38a3ff" font-size="29" font-weight="800">Osteology - Tibia (Anterior View)</text>
+  </svg>`;
+}
+
+function renderAnatomyInteractive(){
+  const active=anatomyTermById(state.anatomyFeature);
+  const seen=ANATOMY_TERMS.filter(term=>state.completed[`anatomy:${term.id}`]).length;
+  return `<article class="card anatomy-card">
+    <div class="anatomy-board">
+      <div class="anatomy-terms" aria-label="Tibia landmarks">${ANATOMY_TERMS.map(term=>anatomyButton(term,active.id)).join('')}</div>
+      <div class="anatomy-stage">${renderAnatomyTibiaSvg(active.id)}</div>
+      <aside class="anatomy-info" aria-live="polite">
+        <span class="tag">Active landmark</span>
+        <h3>${esc(active.label)}</h3>
+        <p>${rich(active.summary)}</p>
+        <div class="progress-tile"><b>${seen}/${ANATOMY_TERMS.length}</b>landmarks selected</div>
+        <button class="primary" onclick="completeAnatomySet()">Mark anatomy set complete</button>
+      </aside>
+    </div>
+  </article>`;
+}
+
+function renderAnatomy(){
+  const m=DATA.modules.find(x=>x.id==='anatomy');
+  const body=`<div class="activity-tabs"><button class="primary" onclick="setAnatomyFeature(state.anatomyFeature,true)">Practice current landmark</button><button onclick="nextAnatomyFeature(1)">Next landmark</button><button onclick="nextAnatomyFeature(-1)">Previous landmark</button></div><div id="anatomyMount">${renderAnatomyInteractive()}</div><article class="card"><h3>Original reconstruction note</h3><p>This recreates the interaction pattern with original SVG anatomy and study text. It does not copy the University of Kentucky iSpring module, images, scripts, or packaged assets.</p><p><a class="image-source-link" href="https://medapp.mc.uky.edu/anatomyinteractives/ViewModule?assetid=1046" target="_blank" rel="noopener">Open the official external module</a></p></article>`;
+  renderShell('anatomy',m.title,m.desc,m.sources,body);
+}
+
+function refreshAnatomy(){
+  const mount=document.getElementById('anatomyMount');
+  if(mount)mount.innerHTML=renderAnatomyInteractive();
+}
+
+function setAnatomyFeature(id, count){
+  state.anatomyFeature=anatomyTermById(id).id;
+  if(count)state.completed[`anatomy:${state.anatomyFeature}`]=true;
+  save();
+  refreshAnatomy();
+}
+
+function nextAnatomyFeature(delta){
+  const idx=ANATOMY_TERMS.findIndex(term=>term.id===state.anatomyFeature);
+  const next=ANATOMY_TERMS[(idx+delta+ANATOMY_TERMS.length)%ANATOMY_TERMS.length];
+  setAnatomyFeature(next.id,true);
+}
+
+function completeAnatomySet(){
+  ANATOMY_TERMS.forEach(term=>state.completed[`anatomy:${term.id}`]=true);
+  save();
+  refreshAnatomy();
 }
 
 function renderVisuals(){
