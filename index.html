@@ -15,14 +15,15 @@
 <section id="disease" class="section"></section>
 <section id="drugs" class="section"></section>
 <section id="objectives" class="section"></section>
-<section id="infection" class="section"></section><section id="antibiotic" class="section"></section><section id="injury" class="section"></section><section id="genetics" class="section"></section><section id="tumors" class="section"></section><section id="muscle" class="section"></section><section id="ultrasound" class="section"></section><section id="visuals" class="section"></section><section id="hotspots" class="section"></section><section id="anatomy" class="section"></section><section id="discriminators" class="section"></section><section id="management" class="section"></section><section id="repair" class="section"></section><section id="regional" class="section"></section><section id="clinical" class="section"></section><section id="mixed" class="section"></section>
+<section id="infection" class="section"></section><section id="antibiotic" class="section"></section><section id="osce" class="section"></section><section id="injury" class="section"></section><section id="genetics" class="section"></section><section id="tumors" class="section"></section><section id="muscle" class="section"></section><section id="ultrasound" class="section"></section><section id="visuals" class="section"></section><section id="hotspots" class="section"></section><section id="anatomy" class="section"></section><section id="discriminators" class="section"></section><section id="management" class="section"></section><section id="repair" class="section"></section><section id="regional" class="section"></section><section id="clinical" class="section"></section><section id="mixed" class="section"></section>
 </main>
-<nav class="mobile-dock" aria-label="Mobile study controls"><button onclick="showSection('dashboard')">Home</button><button onclick="showSection('visuals')">Images</button><button onclick="showSection('anatomy')">Anatomy</button><button onclick="showSection('repair')">Repair</button><button onclick="showSection('mixed')">Exam</button></nav>
+<nav class="mobile-dock" aria-label="Mobile study controls"><button onclick="showSection('dashboard')">Home</button><button onclick="showSection('osce')">OSCE</button><button onclick="showSection('visuals')">Images</button><button onclick="showSection('anatomy')">Anatomy</button><button onclick="showSection('repair')">Repair</button><button onclick="showSection('mixed')">Exam</button></nav>
 <div id="glossaryModal" class="modal" onclick="if(event.target===this)closeGlossaryModal()"><div class="modal-card"><div class="modal-head"><h2 id="glossaryModalTitle">Glossary</h2><button onclick="closeGlossaryModal()">Close</button></div><div id="glossaryModalBody" class="modal-body"></div></div></div>
 <div id="lightbox" class="lightbox" onclick="if(event.target===this)closeLightbox()"><div class="lightbox-panel"><button class="lightbox-close" onclick="closeLightbox()" aria-label="Close image">X</button><img id="lightboxImg" alt=""><p id="lightboxCaption" style="color:white"></p></div></div>
 <noscript><main class="wrap"><article class="card"><h2>JavaScript required</h2><p>This interactive study platform requires JavaScript.</p></article></main></noscript>
 <script src="data/platform-data.js"></script>
 <script src="js/app.js"></script>
 <script src="js/antibiotic-command.js"></script>
+<script src="js/osce-physical-exam.js"></script>
 </body>
 </html>
