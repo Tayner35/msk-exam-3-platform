@@ -11,6 +11,7 @@
 .source-item{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .source-path{overflow-wrap:anywhere}
 .source-note{color:#59677d;font-size:.86rem}
+.cockpit{grid-template-columns:1fr}
 .search-panel{border-left:4px solid #006edb}
 .search-result{display:grid;gap:7px;border:1px solid #d9dee7;border-radius:8px;background:#fff;padding:11px 12px}
 .search-result h3{margin:0}
